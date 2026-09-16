@@ -8,7 +8,21 @@ Code and figures for the manuscript:
 > **Stromal Remodeling Shapes Osimertinib Response Durability, Resistance Evolution, and Recurrence Risk in EGFR-Mutant NSCLC.**
 > Peressini M. *et al.* (in preparation).
 
-Developed at the [BIO2DS-UCM research group](https://github.com/bio2ds-ucm) (Biomedical Data Science and Biostatistics), Universidad Complutense de Madrid.
+---
+
+## 📋 Overview
+
+This repository contains the R code, figures and tables supporting the study **"Stromal Remodeling Shapes Osimertinib Response Durability, Resistance Evolution, and Recurrence Risk in EGFR-Mutant NSCLC"**.
+
+The study integrates NanoString GeoMx Digital Spatial Profiling (DSP) of EGFR-mutant NSCLC biopsies from three clinical cohorts (OSIRESP, OSIREAL and H12O TMA004) with bulk RNA-seq data from in-house osimertinib-resistant cell line models and publicly available cell line persistence datasets (GSE193258). The analyses characterize the tumor and stromal compartments separately to identify biomarkers of osimertinib resistance, determinants of long-term response durability and features associated with recurrence risk.
+
+The code covers cohort-specific data processing (QC, normalization, median expression), gene set enrichment analyses, unsupervised stromal characterization, ENET- and RF-based biomarker discovery, and the development and validation of a long-term response signature, together with the scripts that produce the manuscript figures and tables.
+
+## 👥 Authors
+
+- **Melina Peressini** — Instituto de Investigación Sanitaria Hospital 12 de Octubre (imas12) · Faculty of Statistical Studies, Universidad Complutense de Madrid · BIO2DS-UCM · [ORCID](https://orcid.org/my-orcid?orcid=0009-0008-7844-2067)
+  
+This work was carried out within the [BIO2DS-UCM](https://github.com/bio2ds-ucm) research group (Biomedical Data Science and Biostatistics, Universidad Complutense de Madrid).
 
 ## 📁 Repository structure
 
@@ -75,4 +89,8 @@ This project is released under the **MIT License** (see [`LICENSE`](LICENSE)).
 
 ## ✉️ Contact
 
-For questions about the code, please open an issue in this repository or contact the [BIO2DS-UCM research group](https://github.com/bio2ds-ucm).
+For questions about the code, please [open an issue](https://github.com/bio2ds-ucm/internal-validation-omics/issues) in this repository or contact:
+
+- Melina Peressini - [mperessi@ucm.es](mailto:mperessi@ucm.es)
+- Silvia Pineda — [sipineda@ucm.es](mailto:sipineda@ucm.es)
+---
