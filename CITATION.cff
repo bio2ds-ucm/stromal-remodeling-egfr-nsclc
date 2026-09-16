@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Code for: Stromal Remodeling Shapes Osimertinib Response Durability, Resistance Evolution, and Recurrence Risk in EGFR-Mutant NSCLC"
+abstract: "Analysis code, figures and tables for the study of stromal remodeling as a determinant of osimertinib response durability, resistance evolution and recurrence risk in EGFR-mutant NSCLC. Combines NanoString GeoMx Digital Spatial Profiling of clinical cohorts (OSIRESP, OSIREAL, H12O TMA004) with cell line RNA-seq data (in-house resistance models and public persistence datasets)."
+type: software
+authors:
+  - family-names: "Peressini Álvarez"
+    given-names: "Melina"
+license: MIT
+repository-code: "https://github.com/bio2ds-ucm/stromal-remodeling-egfr-nsclc"
+url: "https://github.com/bio2ds-ucm/stromal-remodeling-egfr-nsclc"
+keywords:
+  - NSCLC
+  - EGFR
+  - osimertinib
+  - tumor stroma
+  - spatial transcriptomics
+  - NanoString GeoMx
+  - biomarker discovery
+  - drug resistance
+# Uncomment and fill in when the Zenodo release is published:
+# doi: "10.5281/zenodo.XXXXXXX"
+# date-released: "2026-XX-XX"
+#
+# When the manuscript is published, add the preferred citation:
+# preferred-citation:
+#   type: article
+#   title: "Stromal Remodeling Shapes Osimertinib Response Durability, Resistance Evolution, and Recurrence Risk in EGFR-Mutant NSCLC"
+#   authors:
+#     - family-names: "Peressini Álvarez"
+#       given-names: "Melina"
+#     # add remaining authors
+#   journal: "..."
+#   year: 2026
+#   doi: "..."
