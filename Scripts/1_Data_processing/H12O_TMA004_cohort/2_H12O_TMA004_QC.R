@@ -27,10 +27,8 @@
 
 
 # LIBRARIES ----
-library(data.table)
 library(dplyr)
 library(GeomxTools)
-library(openxlsx)
 
 # DATA PREPARATION ----
 
