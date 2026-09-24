@@ -39,11 +39,14 @@ model_data_tumor <- data_median |>
   ungroup() |>
   filter(compartment == "Tumor") |>
   select(-compartment) |>
-  inner_join(
-    pData |>
-      select(patient_id, long_response, ecog_ps_dummie, egfr_mutation_type) |>
-      unique()
-  ) |>
+  inner_join(pData |>
+               select(patient_id,
+                      long_response,
+                      pfs_time_months,
+                      disease_progression_to_osimertinib,
+                      ecog_ps_dummie,
+                      egfr_mutation_type) |>
+               unique()) |>
   filter(long_response != "Non-evaluable") |>
   mutate(long_response = long_response |> factor()) |>
   as.data.frame()
@@ -55,40 +58,49 @@ model_data_stroma <- data_median |>
   ungroup() |>
   filter(compartment == "Stroma") |>
   select(-compartment) |>
-  inner_join(
-    pData |>
-      select(patient_id, long_response, ecog_ps_dummie, egfr_mutation_type) |>
-      unique()
-  ) |>
+  inner_join(pData |>
+               select(patient_id,
+                      long_response,
+                      pfs_time_months,
+                      disease_progression_to_osimertinib,
+                      ecog_ps_dummie,
+                      egfr_mutation_type) |>
+               unique()) |>
   filter(long_response != "Non-evaluable") |>
   mutate(long_response = long_response |> factor()) |>
   as.data.frame()
 
 model_data_stroma |> dim()
 
-# Joint
+# Join
 model_data <- model_data_tumor |>
-  inner_join(
-    model_data_stroma,
-    by = join_by(patient_id, long_response, ecog_ps_dummie, egfr_mutation_type),
-    suffix = c("_tumor", "_stroma")
-  )
+  inner_join(model_data_stroma,
+             by = join_by(patient_id, long_response, 
+                          pfs_time_months,
+                          disease_progression_to_osimertinib,
+                          ecog_ps_dummie, egfr_mutation_type),
+             suffix = c("_tumor", "_stroma"))
 
 model_data |> dim()
 
 model_data_final <- model_data |>
-  select(-patient_id, -ecog_ps_dummie, -egfr_mutation_type)
+  select(-patient_id,
+         -pfs_time_months,
+         -disease_progression_to_osimertinib,
+         -ecog_ps_dummie,
+         -egfr_mutation_type) 
 
 model_data_final |> dim()
 
 # Special characters in gene names
-colnames(model_data_final) <- janitor::make_clean_names(colnames(model_data_final), case = "screaming_snake")
+colnames(model_data_final) <- janitor::make_clean_names(colnames(model_data_final),
+                                                        case = "screaming_snake")
 
 # Recover lowercase
 model_data_final <- model_data_final |>
   dplyr::rename(long_response = LONG_RESPONSE)
 
-colnames(model_data_final) <- str_replace_all(colnames(model_data_final),
+colnames(model_data_final) <- str_replace_all(colnames(model_data_final), 
                                               c("TUMOR" = "tumor", "STROMA" = "stroma"))
 
 # VARIABLE SELECTION USING VARPRO -----
@@ -107,23 +119,22 @@ max_ntree <- 1000
 set.seed(seed)
 options(rf.cores = 1)
 options(mc.cores = 1)
-varpro_results <- varPro:::varpro(
-  long_response ~ .,
-  data = model_data_final,
-  method = "randomForestSRC",
-  use.rfq = TRUE,
-  nvar = nobs - 1,
-  ntree = max_ntree,
-  seed = seed,
-  parallel = FALSE,
-  cores = 1,
-  papply = lapply
-)
+varpro_results <- varPro:::varpro(long_response ~ .,
+                                  data = model_data_final,
+                                  method = "randomForestSRC",
+                                  use.rfq = TRUE,
+                                  nvar = nobs - 1,
+                                  ntree = max_ntree,
+                                  seed = seed,
+                                  parallel = FALSE,
+                                  cores = 1,
+                                  papply = lapply)
 
 set.seed(seed)
-varpro_imp <- varPro:::importance(varpro_results, papply = lapply)
+varpro_imp <- varPro:::importance(varpro_results,
+                                  papply = lapply)
 
-# Variable selected
+# Variable selected 
 varpro_vars <- varpro_imp$unconditional |>
   rownames()
 
@@ -146,19 +157,13 @@ n_varpro_vars
 # Number of features
 # variables to keep in pre-filtering
 n_top <- n_varpro_vars
-n_top_sqrt <- n_top |> sqrt()
+n_top_sqrt <- n_top |> sqrt() 
 
-nodesize_grid <- floor(c(0.02, 0.05, 0.10, 0.15) * nobs)
+nodesize_grid <- floor(c(0.02, 0.05, 0.10, 0.15)*nobs)
 
-mtry_grid <- floor(c(
-  n_top_sqrt / 2,
-  n_top_sqrt,
-  n_top_sqrt * 1.5,
-  n_top_sqrt * 2,
-  n_top / 3,
-  n_top / 2,
-  n_top
-)) |> unique() |> sort()
+mtry_grid <- floor(c(n_top_sqrt/2, n_top_sqrt, n_top_sqrt*1.5, 
+                     n_top_sqrt*2, n_top/3, n_top/2, 
+                     n_top)) |> unique() |> sort() 
 
 # Split rule
 splitrule <- "gini"
@@ -169,65 +174,80 @@ splitrule <- "gini"
 
 # 1. mtry and nodesize ----
 
-rf_tuning_results <- rf_tuning(
-  data = model_data_subset,
-  mtry_grid = mtry_grid,
-  nodesize_grid = nodesize_grid,
-  max_ntree = max_ntree,
-  seed = seed,
-  splitrule = splitrule
-)
+# Set seed
+# set.seed(seed)
+rf_tuning_results <- rf_tuning(data = model_data_subset,
+                               mtry_grid = mtry_grid,
+                               nodesize_grid = nodesize_grid,
+                               max_ntree = max_ntree,
+                               seed = seed,
+                               splitrule = splitrule)
+
+rf_tuning_results
 
 # 2. ntree ----
 
-# Using optimal values for mtry and nodesize previously obtained
-rf_tuning_ntree_results <- rf_tuning_ntree(
-  data = model_data_subset,
-  mtry = rf_tuning_results$mtry,
-  nodesize = rf_tuning_results$nodesize,
-  max_ntree = max_ntree,
-  seed = seed,
-  splitrule = splitrule
-)
+# Set seed
+# set.seed(seed)
+# ntree
+# (using optimal values for mtry and nodesize)
+rf_tuning_ntree_results <- rf_tuning_ntree(data = model_data_subset,
+                                           mtry = rf_tuning_results$mtry,
+                                           nodesize = rf_tuning_results$nodesize,
+                                           max_ntree = max_ntree,
+                                           seed = seed,
+                                           splitrule = splitrule)
+
+rf_tuning_ntree_results
+
+plot(rf_tuning_ntree_results$rf_object)
 
 ntree_opt <- rf_tuning_ntree_results$ntree_opt[, "ntree"] |>
   as.numeric()
 
 # Final RF model ----
 
-rf_final <- imbalanced(
-  long_response ~ .,
-  data = model_data_subset,
-  method = "rfq",
-  splitrule = splitrule,
-  ntree = ntree_opt,
-  mtry = rf_tuning_results$mtry,
-  nodesize = rf_tuning_results$nodesize,
-  nsplit = 10,
-  seed = seed
-)
+# Set seed
+# set.seed(seed)
+spatial_rf <- imbalanced(long_response ~ ., 
+                         data = model_data_subset,
+                         method = "rfq",
+                         splitrule = splitrule,
+                         # perf.type = "g.mean",
+                         ntree = ntree_opt, 
+                         mtry = rf_tuning_results$mtry,
+                         nodesize = rf_tuning_results$nodesize,
+                         nsplit = 10,
+                         # importance = "permute",
+                         seed = seed)
 
-# CLEAR ENVIRONMENT ----
+# OOB predictions
+spatial_rf_oob <- model_data |>
+  select(patient_id,
+         long_response,
+         pfs_time_months,
+         disease_progression_to_osimertinib) |>
+  mutate(oob_pred = spatial_rf$predicted.oob[, "Yes"])
 
-rm(list = setdiff(
-  ls(),
-  c(
-    "rf_final",
-    "seed",
-    "nobs",
-    "max_ntree",
-    "topvars",
-    "rf_tuning",
-    "rf_tuning_ntree"
-  )
-))
+# Clear environment ----
 
-saveRDS(rf_final, file = "./Results/Intermediate/OSIRESP_and_OSIREAL_cohorts/6_OSIRESP_long_term_response_signature_spatial.rds")
+rm(list = setdiff(ls(), c("spatial_rf",
+                          "spatial_rf_oob",
+                          "seed",
+                          "nobs",
+                          "max_ntree",
+                          "topvars",
+                          "rf_tuning",
+                          "rf_tuning_ntree")))
 
-# PSEUDO-BULK SIGNATURE ----
+# List with results ----
+spatial_rf_list <- list(spatial_rf = spatial_rf,
+                        spatial_rf_oob = spatial_rf_oob)
 
-# Same genes as in the spatially resolved signature, with the aim of assessing
-# whether discriminatory signal persists when compartmental resolution is lost.
+saveRDS(spatial_rf_list,
+        file = "./Results/Intermediate/OSIRESP_and_OSIREAL_cohorts/6_OSIRESP_long_term_response_signature_spatial.rds")
+
+# PSEUDO-BULK PREDICTION MODEL (SAME GENES) ----
 
 # Load pseudo-bulk data ----
 
@@ -241,11 +261,13 @@ pseudobulk_data <- pseudobulk_data |>
 # Data preparation ----
 
 # Special characters in gene names
-colnames(pseudobulk_data) <- janitor::make_clean_names(colnames(pseudobulk_data), case = "screaming_snake")
+colnames(pseudobulk_data) <- janitor::make_clean_names(colnames(pseudobulk_data),
+                                                       case = "screaming_snake")
 
 # Recover lowercase
 pseudobulk_data <- pseudobulk_data |>
-  dplyr::rename(patient_id = PATIENT_ID, long_response = LONG_RESPONSE)
+  dplyr::rename(patient_id = PATIENT_ID, 
+                long_response = LONG_RESPONSE)
 
 # Global parameters ----
 
@@ -260,19 +282,13 @@ pseudobulk_data_subset <- pseudobulk_data |>
 # Number of features
 # variables to keep in pre-filtering
 n_top <- n_varpro_vars
-n_top_sqrt <- n_top |> sqrt()
+n_top_sqrt <- n_top |> sqrt() 
 
-nodesize_grid <- floor(c(0.02, 0.05, 0.10, 0.15) * nobs)
+nodesize_grid <- floor(c(0.02, 0.05, 0.10, 0.15)*nobs)
 
-mtry_grid <- floor(c(
-  n_top_sqrt / 2,
-  n_top_sqrt,
-  n_top_sqrt * 1.5,
-  n_top_sqrt * 2,
-  n_top / 3,
-  n_top / 2,
-  n_top
-)) |> unique() |> sort()
+mtry_grid <- floor(c(n_top_sqrt/2, n_top_sqrt, n_top_sqrt*1.5, 
+                     n_top_sqrt*2, n_top/3, n_top/2, 
+                     n_top)) |> unique() |> sort() 
 
 # Split rule
 splitrule <- "gini"
@@ -281,42 +297,54 @@ splitrule <- "gini"
 
 # 1. mtry and nodesize ----
 
-rf_tuning_results_pseudo <- rf_tuning(
-  data = pseudobulk_data_subset,
-  mtry_grid = mtry_grid,
-  nodesize_grid = nodesize_grid,
-  max_ntree = max_ntree,
-  seed = seed,
-  splitrule = splitrule
-)
+# Set seed
+# set.seed(seed)
+rf_tuning_results_pseudo <- rf_tuning(data = pseudobulk_data_subset,
+                                      mtry_grid = mtry_grid,
+                                      nodesize_grid = nodesize_grid,
+                                      max_ntree = max_ntree,
+                                      seed = seed,
+                                      splitrule = splitrule)
+
+rf_tuning_results_pseudo
 
 # 2. ntree ----
 
-# Using optimal values for mtry and nodesize previously obtained
-rf_tuning_ntree_results_pseudo <- rf_tuning_ntree(
-  data = pseudobulk_data_subset,
-  mtry = rf_tuning_results_pseudo$mtry,
-  nodesize = rf_tuning_results_pseudo$nodesize,
-  max_ntree = max_ntree,
-  seed = seed,
-  splitrule = splitrule
-)
+# Set seed
+# set.seed(seed)
+# ntree
+# (using optimal values for mtry and nodesize)
+rf_tuning_ntree_results_pseudo <- rf_tuning_ntree(data = pseudobulk_data_subset,
+                                                  mtry = rf_tuning_results_pseudo$mtry,
+                                                  nodesize = rf_tuning_results_pseudo$nodesize,
+                                                  max_ntree = max_ntree,
+                                                  seed = seed,
+                                                  splitrule = splitrule)
+
+rf_tuning_ntree_results_pseudo
+
+plot(rf_tuning_ntree_results_pseudo$rf_object)
 
 ntree_opt_pseudo <- rf_tuning_ntree_results_pseudo$ntree_opt[, "ntree"] |>
   as.numeric()
 
-# Final RF model ----
+# Final RF pseudobulk model ----
 
-rf_final_pseudo <- imbalanced(
-  long_response ~ .,
-  data = pseudobulk_data_subset,
-  method = "rfq",
-  splitrule = splitrule,
-  ntree = ntree_opt_pseudo,
-  mtry = rf_tuning_results_pseudo$mtry,
-  nodesize = rf_tuning_results_pseudo$nodesize,
-  nsplit = 10,
-  seed = seed
-)
+# Set seed
+# set.seed(seed)
+pseudobulk_rf <- imbalanced(long_response ~ ., 
+                            data = pseudobulk_data_subset,
+                            method = "rfq",
+                            splitrule = splitrule,
+                            # perf.type = "g.mean",
+                            ntree = ntree_opt_pseudo, 
+                            mtry = rf_tuning_results_pseudo$mtry,
+                            nodesize = rf_tuning_results_pseudo$nodesize,
+                            nsplit = 10,
+                            # importance = "permute",
+                            seed = seed)
 
-saveRDS(rf_final_pseudo, file = "./Results/Intermediate/OSIRESP_and_OSIREAL_cohorts/6_OSIRESP_long_term_response_signature_pseudobulk.rds")
+saveRDS(pseudobulk_rf,
+        file = "./Results/Intermediate/OSIRESP_and_OSIREAL_cohorts/6_OSIRESP_long_term_response_signature_pseudobulk.rds")
+
+
