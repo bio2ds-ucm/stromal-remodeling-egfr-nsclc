@@ -264,7 +264,7 @@ leid_res$tp53_mut |> table(useNA = "always")
 # Two-way frequency table
 leid_res |>
   filter(tp53_mut != "Non-available") |>
-  tabyl(tp53_mut, cluster, ) |>
+  tabyl(tp53_mut, cluster) |>
   adorn_totals(where = c("row", "col")) |>
   adorn_percentages(c("row")) |>
   adorn_pct_formatting(digits = 1) |>
