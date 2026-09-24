@@ -200,7 +200,6 @@ rm(list = setdiff(
   ls(),
   c(
     "advanced_pred",
-    "early_pred",
     "advanced_auc",
     "advanced_auc_ci",
     "advanced_pred_pseudo",
