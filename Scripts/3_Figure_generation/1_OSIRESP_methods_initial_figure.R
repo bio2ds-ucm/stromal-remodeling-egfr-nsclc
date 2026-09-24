@@ -26,10 +26,10 @@ diagram_2_plot <- ggdraw() +
 # GEOMX DSP IMAGES ----
 
 # Load PNG files 
-dsp_img_1 <- image_read("H12O_32_multiple_ROIs_1.png")
-dsp_img_2 <- image_read("H12O_31_multiple_ROIs_1.png")
-dsp_img_3 <- image_read("H12O_32_ROI004_nosegments_1.png")
-dsp_img_4 <- image_read("H12O_32_ROI004_segments_1.png")
+dsp_img_1 <- image_read("Results/Figures/DSP_images/H12O_32_multiple_ROIs_1.png")
+dsp_img_2 <- image_read("Results/Figures/DSP_images/H12O_31_multiple_ROIs_1.png")
+dsp_img_3 <- image_read("Results/Figures/DSP_images/H12O_32_ROI004_nosegments_1.png")
+dsp_img_4 <- image_read("Results/Figures/DSP_images/H12O_32_ROI004_segments_1.png")
 
 # Crop to same width/length
 info1 <- image_info(dsp_img_1)
