@@ -1054,7 +1054,7 @@ leid_km <- arrangeGrob(leid_km$plot,
 # Figure 3 ----
 
 # Biorender diagram
-diagram <- readPNG("./Results/Figures/Biorender_diagrams/Clustering_advanced.png")
+diagram <- readPNG("./Results/Figures/Biorender_diagrams/Final_figures/Clustering_advanced.png")
 
 diagram_ggplot <- ggdraw() +
   draw_image(diagram)
