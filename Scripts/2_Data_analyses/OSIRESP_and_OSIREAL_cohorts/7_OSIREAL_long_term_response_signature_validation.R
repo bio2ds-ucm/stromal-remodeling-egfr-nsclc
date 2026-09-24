@@ -19,6 +19,7 @@ library(janitor)
 library(GeomxTools)
 library(randomForestSRC)
 library(pROC)
+library(stringr)
 
 # SPATIALLY RESOLVED GENE SIGNATURE ----
 
