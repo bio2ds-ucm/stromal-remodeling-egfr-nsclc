@@ -14,7 +14,7 @@ library(matrixStats)
 # LOAD RAW EXPRESSION DATA ----
 
 # Load target data after QC
-target_data <- readRDS("./Data/OSIRESP_cohort/Processed/OSIREAL_QC.rds")
+target_data <- readRDS("./Data/OSIREAL_cohort/Processed/OSIREAL_QC.rds")
 dim(target_data)
 
 expr_data <- exprs(target_data)
