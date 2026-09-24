@@ -28,10 +28,8 @@
 #       discard segments with levels of expression consistently below LOQ
 
 # LIBRARIES ----
-library(data.table)
 library(dplyr)
 library(GeomxTools)
-library(openxlsx)
 
 # DATA PREPARATION ----
 
