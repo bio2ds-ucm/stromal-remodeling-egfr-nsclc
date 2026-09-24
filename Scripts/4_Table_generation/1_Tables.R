@@ -2,6 +2,7 @@
 # Clinical data description. OSIRESP and OSIREAL cohort
 
 # LIBRARIES ----
+library(GeomxTools)
 library(dplyr)
 library(stringr)
 library(gtsummary)
@@ -317,8 +318,8 @@ clinical_data <- h12otma004_qc |>
       factor() |>
       relevel(ref = "Never smoker"),
     relapse = relapse |>
-      factor(levels = "Yes", "No"),
-    ordered = TRUE
+      factor(levels = c("Yes", "No"),
+    ordered = TRUE)
   ) |>
   select(
     patient_id,
