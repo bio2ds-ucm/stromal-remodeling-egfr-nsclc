@@ -1,4 +1,4 @@
-# ESTO ES UNA PRUEBA Stromal Remodeling Shapes Osimertinib Response Durability, Resistance Evolution, and Recurrence Risk in EGFR-Mutant NSCLC
+# Stromal Remodeling Shapes Osimertinib Response Durability, Resistance Evolution, and Recurrence Risk in EGFR-Mutant NSCLC
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Status](https://img.shields.io/badge/status-in%20preparation-orange.svg)
