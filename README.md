@@ -14,13 +14,15 @@ Code and figures for the manuscript:
 
 This repository contains the R code, figures and tables supporting the study **"Stromal Remodeling Shapes Osimertinib Response Durability, Resistance Evolution, and Recurrence Risk in EGFR-Mutant NSCLC"**.
 
-The study integrates NanoString GeoMx Digital Spatial Profiling (DSP) of EGFR-mutant NSCLC biopsies from three clinical cohorts (OSIRESP, OSIREAL and H12O TMA004) with bulk RNA-seq data from in-house osimertinib-resistant cell line models and publicly available cell line persistence datasets (GSE193258). The analyses characterize the tumor and stromal compartments separately to identify biomarkers of osimertinib resistance, determinants of long-term response durability and features associated with recurrence risk.
+The study integrates spatially resolved RNA profiling (Bruker GeoMx Digital Spatial Profiler instrument, Cancer Transcriptome Atlas assay) of EGFR-mutant NSCLC biopsies from three patient cohorts (OSIRESP, OSIREAL and H12O TMA004) with bulk RNA-seq data from in-house osimertinib-resistant cell line models and publicly available datasets from osimertinib drug-tolerant persister models (GSE193258). 
 
-The code covers cohort-specific data processing (QC, normalization, median expression), gene set enrichment analyses, unsupervised stromal characterization, ENET- and RF-based biomarker discovery, and the development and validation of a long-term response signature, together with the scripts that produce the manuscript figures and tables.
+The analyses characterize baseline compartment-specific (i.e, tumor/stroma) transcriptional programs associated with osimertinib resistance and long-term response using Elastic Net regression and Random Forest; derive and validate a stromal-enriched, spatially resolved gene signature of long-term osimertinib response; stratify advanced-stage EGFR-mutant tumors and early-stage EGFR-mutant tumors based on baseline stromal features using Leiden clustering, with subsequent characterization of molecular stromal subtypes with Gene Set Variation Analysis; and assess transcriptional programs acquired or reinforced after osimertinib exposure through Differential Gene Expression Analysis (DGEA) and Gene Set Enrichment Analysis (GSVA)
+
+The code covers cohort-specific data processing (QC, normalization, median expression), scripts for analyses, together with the scripts that produce the manuscript figures and tables.
 
 ## 👥 Authors
 
-- **Melina Peressini** — Instituto de Investigación Sanitaria Hospital 12 de Octubre (imas12) · Faculty of Statistical Studies, Universidad Complutense de Madrid · BIO2DS-UCM · [ORCID](https://orcid.org/my-orcid?orcid=0009-0008-7844-2067)
+- **Melina Peressini** — Research Institute Hospital 12 de Octubre (imas12) · Faculty of Statistical Studies, Universidad Complutense de Madrid · BIO2DS-UCM · [ORCID](https://orcid.org/my-orcid?orcid=0009-0008-7844-2067)
   
 This work was carried out within the [BIO2DS-UCM](https://github.com/bio2ds-ucm) research group (Biomedical Data Science and Biostatistics, Universidad Complutense de Madrid).
 
@@ -30,7 +32,7 @@ This work was carried out within the [BIO2DS-UCM](https://github.com/bio2ds-ucm)
 .
 ├── Scripts/
 │   ├── 1_Data_processing/       Cohort-specific processing (QC, normalization, median expression)
-│   ├── 2_Data_analyses/         GSEA, unsupervised analyses, biomarker discovery, signature development/validation
+│   ├── 2_Data_analyses/         Biomarker discovery, signature development/validation, unsupervised analyses, DGEA, and GSVA
 │   ├── 3_Figure_generation/     Scripts producing the manuscript figures
 │   └── 4_Table_generation/      Scripts producing the manuscript tables
 ├── Data/                        Instructions to obtain the datasets (data files NOT versioned)
@@ -44,7 +46,7 @@ This work was carried out within the [BIO2DS-UCM](https://github.com/bio2ds-ucm)
 
 Three types of data are used in this study. Neither is versioned in this repository; all instructions to obtain them are in [`Data/README.md`](Data/README.md).
 
-- **OSIRESP, OSIREAL and H12O TMA004 cohorts** — NanoString GeoMx Digital Spatial Profiling data from EGFR-mutant NSCLC biopsies collected at Hospital Universitario 12 de Octubre (Madrid). Data will be deposited in the Gene Expression Omnibus (GEO) upon publication; the accession number will be added here at that time.
+- **OSIRESP, OSIREAL and H12O TMA004 cohorts** — NanoString GeoMx Digital Spatial Profiling data from EGFR-mutant NSCLC biopsies collected at Hospital Universitario 12 de Octubre (Madrid). Data will be deposited in the Gene Expression Omnibus (GEO) upon publication; the accession numbers will be added here at that time.
 - **Cell line persistence data (GSE193258)** — publicly available bulk RNA-seq of EGFR-mutant NSCLC cell lines under osimertinib exposure, downloaded from GEO.
 - **Cell line osimertinib-resistance data** — in-house RNA-seq of H1975 and HCC827 parental vs. resistant cell lines. Will be deposited in GEO upon publication.
 
@@ -54,7 +56,7 @@ Three types of data are used in this study. Neither is versioned in this reposit
 
 1. Place the data files under `Data/` following the layout described in [`Data/README.md`](Data/README.md).
 2. Run the scripts in `Scripts/1_Data_processing/` (cohort-specific) to obtain the processed expression objects.
-3. Run the scripts in `Scripts/2_Data_analyses/` to perform GSEA, biomarker discovery, signature development and validation.
+3. Run the scripts in `Scripts/2_Data_analyses/` to perform the analyses included in the study.
 4. Run the scripts in `Scripts/3_Figure_generation/` and `Scripts/4_Table_generation/` to produce the manuscript figures and tables.
 
 All scripts use paths relative to the repository root, so they should be executed with the repository as the working directory.
@@ -64,7 +66,7 @@ All scripts use paths relative to the repository root, so they should be execute
 ## 🖥️ Software requirements
 
 - R (version used: **to be completed with the R version used**).
-- Key R packages: `GeomxTools`, `NanoStringNCTools`, `GeoMxWorkflows`, `dplyr`, `tidyr`, `furrr`, `SIS`, `glmnet`, `pROC`, `survival`, `timeROC`, `fgsea`. Full list of dependencies is loaded at the top of each script.
+- Key R packages: `GeomxTools`, `dplyr`, `tidyr`, `furrr`, `SIS`, `glmnet`, `pROC`, `survival`, `timeROC`, `fgsea`. Full list of dependencies is loaded at the top of each script.
 
 ## 📑 Citation
 
