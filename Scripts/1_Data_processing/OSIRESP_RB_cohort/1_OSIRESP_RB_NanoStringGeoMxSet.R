@@ -50,14 +50,14 @@ clinical_data <- read_xlsx(
 # Get DCC file names (one per batch)
 
 # OSIRESP_I
-dcc_I_01 <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP/OSIRESP I/DCC-20220202_Osiresp1_Placas1-2-3")
-dcc_I_02 <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP/OSIRESP I/DCC-20220117_Osiresp2_Placas4-5-6")
-dcc_I_03 <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP/OSIRESP I/DCC-20220120_Osiresp3_Placas7-8-9")
-dcc_I_04 <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP/OSIRESP I/DCC-20220202_Osiresp4_Placas10-11-12")
+dcc_I_01 <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP I/DCC-20220202_Osiresp1_Placas1-2-3")
+dcc_I_02 <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP I/DCC-20220117_Osiresp2_Placas4-5-6")
+dcc_I_03 <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP I/DCC-20220120_Osiresp3_Placas7-8-9")
+dcc_I_04 <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP I/DCC-20220202_Osiresp4_Placas10-11-12")
 
 # OSIRESP II
-dcc_II_01 <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP/OSIRESP II/DCC-20230516_OsirespV_Placa1")
-dcc_II_02 <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP/OSIRESP II/DCC-20230524_OsirespV_Placas2-3")
+dcc_II_01 <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP II/DCC-20230516_OsirespV_Placa1")
+dcc_II_02 <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP II/DCC-20230524_OsirespV_Placas2-3")
 
 # Concatenate
 dcc <- c(dcc_I_01, dcc_I_02, dcc_I_03, dcc_I_04, dcc_II_01, dcc_II_02)
@@ -65,15 +65,15 @@ dcc <- c(dcc_I_01, dcc_I_02, dcc_I_03, dcc_I_04, dcc_II_01, dcc_II_02)
 # DCC file names including complete path (one per batch)
 
 # OSIRESP_I
-dcc_I_01_dir <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP/OSIRESP I/DCC-20220202_Osiresp1_Placas1-2-3", full.names = TRUE)
-dcc_I_02_dir <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP/OSIRESP I/DCC-20220117_Osiresp2_Placas4-5-6", full.names = TRUE)
-dcc_I_03_dir <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP/OSIRESP I/DCC-20220120_Osiresp3_Placas7-8-9", full.names = TRUE)
-dcc_I_04_dir <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP/OSIRESP I/DCC-20220202_Osiresp4_Placas10-11-12", full.names = TRUE)
+dcc_I_01_dir <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP I/DCC-20220202_Osiresp1_Placas1-2-3", full.names = TRUE)
+dcc_I_02_dir <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP I/DCC-20220117_Osiresp2_Placas4-5-6", full.names = TRUE)
+dcc_I_03_dir <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP I/DCC-20220120_Osiresp3_Placas7-8-9", full.names = TRUE)
+dcc_I_04_dir <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP I/DCC-20220202_Osiresp4_Placas10-11-12", full.names = TRUE)
 
 
 # OSIRESP II
-dcc_II_01_dir <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP/OSIRESP II/DCC-20230516_OsirespV_Placa1", full.names = TRUE)
-dcc_II_02_dir <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP/OSIRESP II/DCC-20230524_OsirespV_Placas2-3", full.names = TRUE)
+dcc_II_01_dir <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP II/DCC-20230516_OsirespV_Placa1", full.names = TRUE)
+dcc_II_02_dir <- dir(path = "./Data/OSIRESP_cohort/Raw/OSIRESP II/DCC-20230524_OsirespV_Placas2-3", full.names = TRUE)
 
 # Concatenate
 dcc_dir <- c(
