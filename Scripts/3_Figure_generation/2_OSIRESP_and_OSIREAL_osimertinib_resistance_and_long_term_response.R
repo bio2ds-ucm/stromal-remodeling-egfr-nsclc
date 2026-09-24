@@ -1361,7 +1361,7 @@ spatial_rf <- spatial_rf_list$spatial_rf
 
 # Validation results for both the spatially resolved and the pseudobulk gene
 # signature
-load(file = "./Results/Intermediate/OSIRESP_and_OSIREAL_cohorts/7_OSIRESP_long_term_response_signature_validation.RData")
+load(file = "./Results/Intermediate/OSIRESP_and_OSIREAL_cohorts/7_OSIREAL_long_term_response_signature_validation.RData")
 
 # Partial Dependence Plots (PDPs) ----
 
