@@ -1397,7 +1397,7 @@ fig_s6 <- plot_grid(
 
 # Save
 ggsave(
-  "./Results/Figures/Final_Figures/Figure_S6.png",
+  "./Results/Figures/Final_figures/Figure_S6.png",
   plot = fig_s6,
   units = "cm",
   width = 21,
