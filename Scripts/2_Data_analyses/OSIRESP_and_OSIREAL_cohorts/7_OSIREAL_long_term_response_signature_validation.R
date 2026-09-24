@@ -210,4 +210,4 @@ rm(list = setdiff(
 
 # SAVE RESULTS ----
 
-save.image(file = "./Results/Intermediate/OSIRESP_and_OSIREAL_cohorts/7_OSIRESP_long_term_response_signature_validation.RData")
+save.image(file = "./Results/Intermediate/OSIRESP_and_OSIREAL_cohorts/7_OSIREAL_long_term_response_signature_validation.RData")
