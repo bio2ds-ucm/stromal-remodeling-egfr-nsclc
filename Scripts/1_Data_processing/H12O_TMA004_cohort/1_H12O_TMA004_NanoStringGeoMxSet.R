@@ -64,7 +64,7 @@ pkc_dir <- "./Data/H12O_TMA004_cohort/Raw/GeoMx_Hs_CTA_v1.0.pkc"
 # LABWORKSHEET ----
 
 # Read labworksheet file
-labws <- readRDS("./Data/H12O_TMA004_cohort/Processed/H12O_TMA004_labworksheet.rds")
+labws <- readRDS("./Data/H12O_TMA004_cohort/Raw/H12O_TMA004_labworksheet.rds")
 
 # Check dimensions
 labws |>
