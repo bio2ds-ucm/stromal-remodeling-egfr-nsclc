@@ -14,7 +14,7 @@ library(ggplotify)
 
 # Load diagrams
 diagram_1 <- readPNG("./Results/Figures/Biorender_diagrams/Final_figures/Methods_1.png")
-diagram_2 <- readPNG("./Results/Figures/Biorender_diagrams/Methods_2.png")
+diagram_2 <- readPNG("./Results/Figures/Biorender_diagrams/Final_figures/Methods_2.png")
 
 # Convert to cowplot drawable object
 diagram_1_plot <- ggdraw() +
