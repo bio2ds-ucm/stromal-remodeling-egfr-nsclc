@@ -26,7 +26,7 @@ data_median <- readRDS("./Data/OSIRESP_cohort/Processed/OSIRESP_vst_medianvalues
 pData <- readRDS("./Data/OSIRESP_cohort/Processed/OSIRESP_q3norm_pData.rds")
 
 # FUNCTIONS ----
-source("./Scripts/Data_analyses/OSIRESP_cohort/ENET_logistic_functions.R")
+source("./Scripts/2_Data_analyses/OSIRESP_and_OSIREAL_cohorts/ENET_logistic_functions.R")
 
 
 # GLOBAL PARAMETERS ----
