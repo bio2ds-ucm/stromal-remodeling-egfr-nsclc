@@ -467,7 +467,7 @@ mrkr_res_tumor <- list(
 )
 
 # Supp File with DGEA results
-write.xlsx(mrkr_res_tumor, rowNames = TRUE, file = "./Results/Tables/OSIRESP_tumorl_subtypes_markers_tumor.xlsx")
+write.xlsx(mrkr_res_tumor, rowNames = TRUE, file = "./Results/Tables/OSIRESP_tumor_subtypes_markers_tumor.xlsx")
 
 # GSVA ----
 
