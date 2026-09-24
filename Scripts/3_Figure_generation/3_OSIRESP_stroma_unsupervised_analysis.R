@@ -660,7 +660,7 @@ loxl2_y_pos <- loxl2_tumor_long |>
   summarise(y.position = max(expression, na.rm = TRUE) - 0.1)
 
 # p-value formatting
-loxl2_pvals <- mrkr_res_stroma$`C4_A cluster`["LOXL2", ] |>
+loxl2_pvals <- mrkr_res_tumor$`C4_A cluster`["LOXL2", ] |>
   rownames_to_column(var = "gene") |>
   mutate(
     group1 = "C1_A",
