@@ -5,13 +5,10 @@ to obtain each dataset and where to place the files so the scripts find them.
 
 ## 1. Clinical cohorts (OSIRESP, OSIREAL, H12O TMA004)
 
-NanoString GeoMx Digital Spatial Profiling data of EGFR-mutant NSCLC biopsies
-collected at Hospital Universitario 12 de Octubre (Madrid).
+Bruker GeoMx Digital Spatial Profiler data of EGFR-mutant NSCLC patient biopsies.
 
 **Availability.** Data will be deposited in the Gene Expression Omnibus (GEO)
 upon publication. The GEO accession number will be added here at that time.
-Until then, requests for the raw DCC files can be addressed to the
-corresponding author.
 
 **Expected layout after download:**
 
@@ -27,7 +24,7 @@ Data/
 │   ├── Raw/
 │   ├── Clinical_annotations/OSIREAL_clinical_annotations.xlsx
 │   └── Processed/
-├── OSIRESP_RB_cohort/              # post-progression re-biopsy subset
+├── OSIRESP_RB_cohort/              # post-progression biopsies additionally collected and added to the OSIRESP cohort
 │   ├── Raw/
 │   └── Processed/
 └── H12O_TMA004_cohort/
@@ -43,13 +40,11 @@ osimertinib exposure.
 
 **Source.** GEO accession [GSE193258](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE193258).
 
-Download the following files from GEO and place them in
+Download the following file from GEO and place them in
 `Data/Cell_line_models/Persistence/`:
 
 - `GSE193258_raw_counts_GRCh38.p13_NCBI.tsv`
-- `GSE193258_norm_counts_TPM_GRCh38.p13_NCBI.tsv`
-- `GSE193258_norm_counts_FPKM_GRCh38.p13_NCBI.tsv`
-
+  
 The per-cell-line `.rds` objects (`GSE193258_H1975.rds`, `GSE193258_HCC827.rds`,
 `GSE193258_HCC2935.rds`, etc.) are produced by the scripts in
 `Scripts/1_Data_processing/Cell_line_models/Persistence/`.
