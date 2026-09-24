@@ -14,6 +14,7 @@ library(patchwork)
 library(png)
 library(ggplotify)
 library(cowplot)
+library(enrichplot)
 
 # PATIENT SAMPLES ----
 
@@ -281,14 +282,6 @@ p_mcaf <- ggplot(
     legend.box.margin = margin(-10, 0, -10, 0)
   ) +
   guides(color = guide_colorbar(barwidth = 9, barheight = 0.3), size = "none")
-
-ggsave(
-  "./Results/Figures/Spaguetti_plot_mcAF.png",
-  plot = p_mcaf,
-  units = "cm",
-  height = 12,
-  width = 12
-)
 
 # Spaghetti plot immune markers (stroma) ----
 
