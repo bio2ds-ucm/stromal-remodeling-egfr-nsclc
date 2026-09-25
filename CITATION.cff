@@ -18,10 +18,10 @@ keywords:
   - NanoString GeoMx
   - biomarker discovery
   - drug resistance
-# Uncomment and fill in when the Zenodo release is published:
-# doi: "10.5281/zenodo.XXXXXXX"
-# date-released: "2026-XX-XX"
-#
+
+ doi: "10.5281/zenodo.20610890"
+ date-released: "2026-09-25"
+
 # When the manuscript is published, add the preferred citation:
 # preferred-citation:
 #   type: article
