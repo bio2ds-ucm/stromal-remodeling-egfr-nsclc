@@ -1,7 +1,7 @@
 # Stromal Remodeling Shapes Osimertinib Response Durability, Resistance Evolution, and Recurrence Risk in EGFR-Mutant NSCLC
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20610890.svg)](https://doi.org/10.5281/zenodo.20610890)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22957074.svg)](https://doi.org/10.5281/zenodo.22957074)
 
 Code and figures for the manuscript:
 
